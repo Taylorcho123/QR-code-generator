@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f0f0f0;
+        }
+
+        #content {
+            background-color: white;
+            width: 80%;
+            margin: 50px auto;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        input {
+            width: 80%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 3px;
+        }
+
+        button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        #qr-code {
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <h1>QR Code Generator</h1>
+        <p>Enter a URL or text to generate a QR code:</p>
+        <input type="text" id="input-text" placeholder="Enter your URL or text...">
+        <button onclick="generateQRCode()">Generate QR Code</button>
+        <div id="qr-code"></div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.4.4/build/qrcode.min.js"></script>
+    <script>
+        function generateQRCode() {
+            const inputText = document.getElementById('input-text').value;
+            const qrCodeElement = document.getElementById('qr-code');
+            qrCodeElement.innerHTML = '';
+
+            if (inputText) {
+                QRCode.toCanvas(document.createElement('canvas'), inputText, {width: 200}, (error, canvas) => {
+                    if (error) {
+                        alert('Error generating QR code: ' + error);
+                    } else {
+                        qrCodeElement.appendChild(canvas);
+                    }
+                });
+            } else {
+                alert('Please enter a URL or text to generate a QR code.');
+            }
+        }
+    </script>
+</body>
+</html>
